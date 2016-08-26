@@ -5,6 +5,7 @@ from tempfile import TemporaryFile
 is_muted = ''
 current_volume = ''
 current_icon = ''
+last_volume = ''
 
 def getVolumeStatus(tempFile):
     global is_muted
@@ -20,12 +21,22 @@ def getVolumeStatus(tempFile):
     current_volume = int(p2.stdout.read().decode('utf-8').rstrip().replace("%", ''))
 
 volume_icons = ['', '', '']
+is_dirty = True
+
+
 
 with TemporaryFile() as f:
     while True:
         f.truncate(0)
         
         getVolumeStatus(f)
+
+        if last_volume != current_volume:
+            is_dirty = True
+        else:
+            is_dirty = False
+        last_volume = current_volume
+            
         if current_volume > 50:
             current_icon = volume_icons[2]
         elif current_volume > 1:
@@ -35,10 +46,13 @@ with TemporaryFile() as f:
 
         if is_muted:
             current_icon = volume_icons[0]
-            current_volume = "MUTE"
+            current_volume = ''
+            last_volume = "MUTE"
         elif type(current_volume) is int:
-            current_volume = str(current_volume) + "%"
-
-        print(current_icon + ' ' + current_volume)
+            current_volume = ' ' + str(current_volume) + "%"
+        if is_dirty:
+            print(current_icon + current_volume)
+        else:
+            print(current_icon)
 
         sleep(1)

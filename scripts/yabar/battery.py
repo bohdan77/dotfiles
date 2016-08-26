@@ -41,6 +41,8 @@ while True:
 
 
 
-
-    print(color_str + battery_icon + ' ' + str(battery_now) + "%")
+    if battery_now == 100:
+        print(color_str + battery_icon)
+    else:
+        print(color_str + battery_icon + ' ' + str(battery_now) + "%")
     sleep(2)
