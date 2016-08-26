@@ -24,6 +24,8 @@ def on_workspace_focus(self, e):
 
 i3.on('workspace::focus', on_workspace_focus)    
 
-
+print(workspace_icons[1]) #default
 
 i3.main()
+
+
