@@ -1,32 +1,29 @@
-import ujson, subprocess, sys
+import ujson, subprocess, sys, i3ipc
 from time import sleep
 
-def shell(cmd):
-    return subprocess.Popen(cmd, shell = True, stdout = subprocess.PIPE).stdout.read().rstrip()
-
-def getWorkspaceJSON():
-    workspacesPayload = shell('i3-msg -t get_workspaces')
-    return ujson.loads(workspacesPayload)
-    
 
 workspace_icons = {1 : '', 2 : '', 3 : '', 0 : '', 4 : ''}
 
 current_workspace_id = 0
 
+i3 = i3ipc.Connection()
 
-while True:
-
-    for x in getWorkspaceJSON():
-        if x['visible']:
-            current_workspace_id = x['num']
-            break
-
-    if current_workspace_id >= len(workspace_icons):
-        current_workspace_id = 0
+def on_workspace_focus(self, e):
+    global current_workspace_id
     
-        
+    if e.current:
+        num = e.current.num
+        if num != current_workspace_id:
+            current_workspace_id = num
+            if current_workspace_id >= len(workspace_icons):
+                current_workspace_id = 0
+            print(workspace_icons.get(current_workspace_id))
     
-    print(workspace_icons.get(current_workspace_id))
     
 
-    sleep(0.3)
+
+i3.on('workspace::focus', on_workspace_focus)    
+
+
+
+i3.main()
