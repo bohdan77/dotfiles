@@ -24,6 +24,7 @@ while True:
         battery_color = battery_colors[0]
     elif battery_now > 75:
         battery_icon = battery_icons[3]
+        battery_color = battery_colors[1]
     elif battery_now > 50:
         battery_icon = battery_icons[2]
     elif battery_now > 20:    
