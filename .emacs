@@ -6,7 +6,7 @@
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 
-(setq package-list '(ample-theme anaconda-mode auto-complete autopair avy cmake-font-lock cmake-ide cmake-mode company company-anaconda company-irony company-irony-c-headers company-tern company-web dash evil evil-args evil-avy evil-surround expand-region flycheck helm helm-projectile helm-swoop irony js2-mode key-chord magit magit-popup popup powerline projectile pythonic rainbow-delimiters rainbow-mode rtags smart-mode-line smartparens smooth-scrolling tern web-mode  ))
+(setq package-list '(ample-theme anaconda-mode auto-complete autopair avy cmake-font-lock cmake-ide cmake-mode company company-anaconda company-irony company-irony-c-headers company-tern company-web dash evil evil-args evil-avy evil-surround expand-region flycheck helm helm-projectile helm-swoop irony js2-mode key-chord magit magit-popup popup powerline projectile pythonic rainbow-delimiters rainbow-mode rtags smart-mode-line smartparens smooth-scrolling tern web-mode disable-mouse nlinum yasnippet  ))
 
  ;;fetch the list of packages available 
 (or (file-exists-p package-user-dir)
@@ -69,11 +69,12 @@
 (setq org-log-done t)
 
 ;;font
-(set-frame-font "Inconsolata-g-10.5" nil t)
+(set-frame-font "Source Code Pro-14" nil)
 
 					;helm
 (require 'helm)
 (require 'helm-config)
+(require 'helm-projectile)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x b") 'helm-buffers-list)
@@ -83,19 +84,19 @@
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
 
 ;;evil
-;(evil-mode 1)
-;(global-evil-surround-mode 1)
-;(setq evil-insert-state-cursor '((bar . 1) "green")
-;      evil-normal-state-cursor '(box "#F5F5DC"))
-;(setq evil-find-skip-newlines t)
-;(setq evil-move-cursor-back t)
+(evil-mode 1)
+(global-evil-surround-mode 1)
+(setq evil-insert-state-cursor '((bar . 1) "green")
+      evil-normal-state-cursor '(box "#F5F5DC"))
+(setq evil-find-skip-newlines t)
+(setq evil-move-cursor-back t)
 
 ;;avy(quick jumping)
-;(evil-avy-mode 1)
+(evil-avy-mode 1)
 ;;(global-set-key (kbd "<SPC>") 'avy-goto-char)
 
-;;expand-region(only works in insert mode)
-;(define-key evil-insert-state-map (kbd "C-q") 'er/expand-region)
+;expand-region(only works in insert mode)
+(define-key evil-insert-state-map (kbd "C-q") 'er/expand-region)
 ;;(key-chord-define-global
 
 ;;flycheck
@@ -103,12 +104,13 @@
 
 (require 'rtags)
 ;(require 'flycheck-rtags)
+(global-flycheck-mode 1)
 (add-hook 'c++-mode-hook 'flycheck-mode)
 (add-hook 'c-mode-hook 'flycheck-mode)
 
-;(setq-default flycheck-disabled-checkers
-;	      (append flycheck-disabled-checkers
-;		      '(c/c++-clang)))
+(setq-default flycheck-disabled-checkers
+	      (append flycheck-disabled-checkers
+		      '(c/c++-clang)))
 (add-hook 'c++-mode-hook (lambda () (setq flycheck-clang-language-standard "c++11")))
 (add-hook 'c++-mode-hook #'modern-c++-font-lock-mode)
 
@@ -129,6 +131,10 @@
 (projectile-global-mode)
 (helm-projectile-on)
 
+;line numbers
+(global-nlinum-mode 1)
+
+
 ;;smartparens
 (require 'smartparens-config)
 (add-hook 'js2-mode-hook #'smartparens-mode)
@@ -138,7 +144,6 @@
 (add-hook 'cmake-mode-hook #'smartparens-mode)
 
 					;magit
-(require 'magit)
 (defun magit-hook ()
   (global-set-key (kbd "C-x g") ’magit-status)
   (global-set-key (kbd "C-x M-g") ’magit-dispatch-popup)
@@ -163,20 +168,20 @@ With argument ARG, do this that many times."
 (global-set-key (kbd "M-<tab>") 'company-complete) 
 
 ;;evil args(movement between function arguments)
-;(require 'evil-args)
+(require 'evil-args)
 
 ;; bind evil-args text objects
-;(define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
-;(define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
+(define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
+(define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
 
 ;; bind evil-forward/backward-args
-;(define-Nkey evil-normal-state-map "L" 'evil-forward-arg)
-;(define-key evil-normal-state-map "H" 'evil-backward-arg)
-;(define-key evil-motion-state-map "L" 'evil-forward-arg)
-;(define-key evil-motion-state-map "H" 'evil-backward-arg)
+(define-key evil-normal-state-map "L" 'evil-forward-arg)
+(define-key evil-normal-state-map "H" 'evil-backward-arg)
+(define-key evil-motion-state-map "L" 'evil-forward-arg)
+(define-key evil-motion-state-map "H" 'evil-backward-arg)
 
 ;n; bind evil-jump-out-args
-;(define-key evil-normal-state-map "K" 'evil-jump-out-args)
+(define-key evil-normal-state-map "K" 'evil-jump-out-args)
 
 ;;python anaconda
 (add-hook 'python-mode-hook 'anaconda-mode)
@@ -235,6 +240,10 @@ Repeated invocations toggle between the two most recently open buffers."
 					;rainbow color mode
 (add-hook 'css-mode-hook #'rainbow-mode)
 
+
+;;C++
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+
 					;cmake
 (autoload 'cmake-font-lock-activate "cmake-font-lock" nil t)
 (add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
@@ -269,7 +278,7 @@ Repeated invocations toggle between the two most recently open buffers."
    ;; Load with `irony-mode` as a grouped backend
    (eval-after-load 'company
      '(add-to-list
-       'company-backends '(company-irony-c-headers company-irony)))
+       'company-backends '(company-irony-c-s company-irony)))
 
 ;;generic keybinds
 (key-chord-mode 1)
@@ -280,30 +289,15 @@ Repeated invocations toggle between the two most recently open buffers."
 (global-set-key (kbd "C-c C-k") 'compile)
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-z") 'avy-goto-char)
 (global-set-key [C-backspace] 'delete-word)
-;(key-chord-define evil-normal-state-map "fd" 'evil-force-normal-state)
-;(key-chord-define evil-visual-state-map "fd" 'evil-change-to-previous-state)
-;(key-chord-define evil-insert-state-map "fd" 'evil-normal-state)
-;(key-chord-define evil-replace-state-map "fd" 'evil-normal-state)
+(key-chord-define evil-normal-state-map "fd" 'evil-force-normal-state)
+(key-chord-define evil-visual-state-map "fd" 'evil-change-to-previous-state)
+(key-chord-define evil-insert-state-map "fd" 'evil-normal-state)
+(key-chord-define evil-replace-state-map "fd" 'evil-normal-state)
 (key-chord-define-global "JJ" 'switch-to-previous-buffer)
 (global-set-key (kbd "C-x g") 'magit-status)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (ample)))
- '(custom-safe-themes
-   (quote
-    ("4f5bb895d88b6fe6a983e63429f154b8d939b4a8c581956493783b2515e22d6d" "bcc6775934c9adf5f3bd1f428326ce0dcd34d743a92df48c128e6438b815b44f" default))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+(load-theme 'ample-flat t)
 
 ;;make the fringe color the same
   (set-face-attribute 'fringe nil
@@ -319,5 +313,10 @@ Repeated invocations toggle between the two most recently open buffers."
 
 ;;modeline color
 
-(set-face-foreground 'mode-line "##B9B9B9")
+(set-face-foreground 'mode-line "#B9B9B9")
 (set-face-background 'mode-line "#2F2F2F")
+
+
+;;disable the mouse in emacs --only useful for laptops, I guess.
+(add-hook 'prog-mode 'disable-mouse-mode)
+(evil-make-overriding-map disable-mouse-mode-map)
