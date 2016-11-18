@@ -13,8 +13,6 @@ Plug 'https://github.com/scrooloose/syntastic'
 Plug 'https://github.com/luochen1990/rainbow'
 call plug#end()
 
-colorscheme lucius
-LuciusWhiteLowContrast 
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
