@@ -11,8 +11,11 @@ Plug 'https://github.com/jonathanfilip/vim-lucius'
 Plug 'https://github.com/Valloric/YouCompleteMe'
 Plug 'https://github.com/scrooloose/syntastic'
 Plug 'https://github.com/luochen1990/rainbow'
+Plug 'https://github.com/Chiel92/vim-autoformat'
+
 call plug#end()
 
+:imap fd <Esc>
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}

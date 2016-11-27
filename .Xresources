@@ -15,17 +15,13 @@ Xft.autohint: false
 Xft.hintstyle: hintslight
 Xft.lcdfilter: lcddefault
 
-XTerm*background: #2b2b2b
-XTerm*foreground: #e7e7e7
-XTerm*pointerColor: #16A085
-XTerm*faceName: Fixed
-XTerm*faceSize: 11
-
 URxvt.font: xft:Source Code Pro:style=semibold:pixelsize=17
 URxvt.scrollBar: false
 URxvt.loginShell: true
 URxvt.saveLines: 10000
-URxvt.geometry: 45x45
-URxvt.background: #E8E8E8
-URxvt.foreground: #000000
+URxvt.geometry: 59x24
+!#E8E8E8 if white
+URxvt.background: #2b2e39
+!#000000 if white
+URxvt.foreground: #ffffff
 URxvt.internalBorder: 23
