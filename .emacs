@@ -96,6 +96,7 @@
 (global-evil-leader-mode)
 
 
+
 (defun switch-to-previous-buffer ()
   "Switch to previous buffer."
   (interactive)
@@ -103,17 +104,18 @@
 
 (evil-leader/set-key
   "f" 'helm-find-files
-  "k" 'kill-buffer
+  "k" 'kill-buffer-and-window
   "b" 'helm-buffers-list
   "a" 'switch-to-previous-buffer
   "z" 'avy-goto-char
+  "o" 'other-window
   "d" 'helm-semantic-or-imenu
   "m" 'helm-man-woman
   "p" 'helm-projectile
   "x" 'er/expand-region
   ";" 'evilnc-comment-or-uncomment-lines
   )
-(require 'tern)
+
 (evil-leader/set-key-for-mode
   'python-mode
   "e" 'anaconda-mode-find-definitions
@@ -145,7 +147,8 @@
 (require 'smartparens-config)
 (add-hook 'prog-mode-hook #'smartparens-mode)
 
-(add-hook 'prog-mode-hook #'aggressive-indent-mode)
+(global-aggressive-indent-mode 1)
+(add-to-list 'aggressive-indent-excluded-modes 'python-mode)
 
 (add-hook 'prog-mode-hook 'semantic-mode)
 (require 'cmake-mode)
