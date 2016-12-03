@@ -78,6 +78,35 @@
 (push '(font . "Source Code Pro-14") default-frame-alist)
 
 (smooth-scrolling-mode 1)
+;; autoinsert C/C++ header
+(define-auto-insert
+  (cons "\\.\\([Hh]\\|hh\\|hpp\\)\\'" "My C / C++ header")
+  '(nil
+    "// " (file-name-nondirectory buffer-file-name) "\n"
+    (let* ((noext (substring buffer-file-name 0 (match-beginning 0)))
+	   (nopath (file-name-nondirectory noext))
+	   (ident (concat (upcase nopath) "_H")))
+      (concat "#ifndef " ident "\n"
+	      "#define " ident  " 1\n\n\n"
+	      "\n\n#endif // " ident "\n"))
+    ))
+
+;; auto insert C/C++
+(define-auto-insert
+  (cons "\\.\\([Cc]\\|cc\\|cpp\\)\\'" "My C++ implementation")
+  '(nil
+    "// " (file-name-nondirectory buffer-file-name) "\n"
+    "//\n"
+    (make-string 70 ?/) "\n\n"
+    (let* ((noext (substring buffer-file-name 0 (match-beginning 0)))
+	   (nopath (file-name-nondirectory noext))
+	   (ident (concat nopath ".h")))
+      (if (file-exists-p ident)
+	  (concat "#include \"" ident "\"\n")))
+    (make-string 70 ?/) "\n"
+    "// $Log:$\n"
+    "//\n"
+    ))
 
 (require 'helm)
 (require 'helm-config)
@@ -133,6 +162,7 @@
   "r" 'rtags-location-stack-back
   "tv" 'rtags-find-virtuals-at-point
   "tf" 'rtags-fixit
+  "ta" 'projectile-find-other-file
   "q" 'rtags-symbol-type
   "yn" 'rtags-rename-symbol
   "tq" 'rtags-include-file
