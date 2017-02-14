@@ -12,16 +12,26 @@ Xft.antialias: true
 Xft.hinting: true
 Xft.rgba: rgb
 Xft.autohint: false
-Xft.hintstyle: hintslight
+Xft.hintstyle: hintslight f
 Xft.lcdfilter: lcddefault
 
-URxvt.font: xft:Source Code Pro:style=semibold:pixelsize=17
+URxvt.font: xft:Iosevka:style=semibold f:pixelsize=17
 URxvt.scrollBar: false
 URxvt.loginShell: true
 URxvt.saveLines: 10000
 URxvt.geometry: 59x24
 !#E8E8E8 if white
-URxvt.background: #2b2e39
+URxvt.background: #F5F5F6
 !#000000 if white
-URxvt.foreground: #ffffff
+URxvt.foreground: #000000
 URxvt.internalBorder: 23
+
+rofi.color-enabled: true
+rofi.color-window: #00000000
+rofi.color-normal: #00000000, #ff000000, #00000000, #11000000, #ff000000
+rofi.color-urgent: #11000000, #ff000000
+rofi.width: 25
+rofi.lines: 10
+rofi.fixed-num-lines: 10
+rofi.fullscreen: true
+rofi.padding: 400
