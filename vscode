@@ -24,5 +24,9 @@
                 "<Esc>"
             ]
         }
-    ]
+    ],
+    "theme.statusbar.smiley.enabled": false,
+    "theme.integrity.enabled": false,
+    "theme.statusbar.background.color": "#323232"
+
 }
