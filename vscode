@@ -1,6 +1,9 @@
 // Place your settings in this file to overwrite the default settings
 {
-    "editor.fontFamily": "Iosevka",
+    "editor.fontFamily": "Fira Code",
+    "rust.racerPath": "~/.cargo/bin/racer",
+    "rust.rustfmtPath": "~/.cargo/bin/rustfmt",
+    "rust.rustsymPath": "~/.cargo/bin/rustsym",
     "files.autoSave": "afterDelay",
     "files.autoSaveDelay": 2000,
     "editor.fontLigatures": true,
@@ -10,10 +13,27 @@
     "editor.acceptSuggestionOnEnter": false,
     "editor.cursorBlinking": "phase",
     "editor.renderLineHighlight": "gutter",
+    "zenMode.fullScreen": false,
     "extensions.autoUpdate": true,
     "vim.useCtrlKeys": false,
     "vim.useSystemClipboard": true,
     "vim.easymotion": true,
+    "vim.leader": "<space>",
+    "vim.otherModesKeyBindings": [
+        {
+            "before": [
+                "<leader>",
+                "f"
+            ],
+            "after": [],
+            "commands": [
+                {
+                    "command": "workbench.action.quickOpen",
+                    "args": []
+                }
+            ]
+        }
+    ],
     "vim.insertModeKeyBindings": [
         {
             "before": [
@@ -27,6 +47,10 @@
     ],
     "theme.statusbar.smiley.enabled": false,
     "theme.integrity.enabled": false,
-    "theme.statusbar.background.color": "#323232"
-
+    "theme.statusbar.background.color": "#323232",
+    "workbench.colorTheme": "One Monokai",
+    "window.menuBarVisibility": "toggle",
+    "workbench.iconTheme": "vscode-great-icons",
+    "workbench.statusBar.visible": true,
+    "workbench.activityBar.visible": false
 }
